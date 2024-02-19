@@ -17,7 +17,7 @@
       new Notification("Time out!")
       startTime = new Date()
       miss += 1
-      time = Math.floor(1.2 * time)
+      time = Math.floor(1.25 * time)
       timeLeft = time
     }
   }
