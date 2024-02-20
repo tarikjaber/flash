@@ -1,8 +1,10 @@
 <script lang="ts">
+  import JSConfetti from "js-confetti";
+
+  const jsConfetti = new JSConfetti();
   let time = 600
   let timeLeft = time
   let pass = 0
-  let miss = 0
   let startTime = new Date()
   Notification.requestPermission()
   
@@ -14,9 +16,8 @@
     timeLeft = endTime - Math.floor(+currentTime / 1000);
 
     if (timeLeft <= 0) {
-      new Notification("Time out!")
+      new Notification("Great attempt!")
       startTime = new Date()
-      miss += 1
       time = Math.floor(1.25 * time)
       timeLeft = time
     }
@@ -38,6 +39,9 @@
   }
   
   function finish() {
+    jsConfetti.addConfetti({
+      confettiNumber: 40
+    })
     startTime = new Date()
     pass += 1
     time = Math.floor(time * 0.8)
@@ -46,7 +50,7 @@
 </script>
 
 <h1>{formatTime(timeLeft)}</h1>
-<h3><span class="pass">{pass}</span> <span class="miss">{miss}</span></h3>
+<h3><span class="pass">{pass}</span></h3>
 <button on:click={finish}>Done</button>
 
 <style>
@@ -63,10 +67,6 @@
     color: #9ADE7B;
   }
 
-  .miss {
-    color: #FF8F8F;
-  }
-  
   h3 {
     font-size: 3em;
     margin: 0;
